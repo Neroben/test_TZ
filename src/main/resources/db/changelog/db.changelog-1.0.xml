@@ -1,0 +1,79 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="16112021-1-1" author="dontsov">
+        <createTable tableName="users">
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="email" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="authority" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="products">
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="supplier_id" type="UUID">
+                <constraints references="users(id)" foreignKeyName="fk_products_supplier" nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="product_prices">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="price" type="decimal">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_start" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_end" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="product_id" type="UUID">
+                <constraints references="products(id)" foreignKeyName="fk_product_prices_products" nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="delivery_history">
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="consumer_id" type="UUID">
+                <constraints references="users(id)" foreignKeyName="fk_delivery_history_consumer" nullable="false"/>
+            </column>
+            <column name="date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="order_line">
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="price" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="weight" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="delivery_id" type="UUID">
+                <constraints references="delivery_history(id)" foreignKeyName="fk_order_line_delivery" nullable="false"/>
+            </column>
+            <column name="product_id" type="UUID">
+                <constraints references="products(id)" foreignKeyName="fk_order_line_products" nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
