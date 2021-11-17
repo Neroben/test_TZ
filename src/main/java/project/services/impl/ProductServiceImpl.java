@@ -25,7 +25,6 @@ public class ProductServiceImpl implements ProductService {
         return productMapper.toDto(getProduct(id));
     }
 
-    //todo add handler
     private ProductEntity getProduct(UUID id) {
         return productRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Product is not found"));
     }

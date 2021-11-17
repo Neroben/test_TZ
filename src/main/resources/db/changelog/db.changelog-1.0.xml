@@ -76,6 +76,26 @@
                 <constraints references="products(id)" foreignKeyName="fk_order_line_products" nullable="false"/>
             </column>
         </createTable>
+        <createTable tableName="oauth_access_token">
+            <column name="token_id" type="varchar(10000)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="token" type="varchar(10000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="authentication_id" type="varchar(10000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_name" type="varchar(10000)"/>
+            <column name="client_id" type="varchar(10000)"/>
+            <column name="authentication" type="varchar(10000)"/>
+            <column name="refresh_token" type="varchar(10000)"/>
+        </createTable>
+        <createTable tableName="oauth_refresh_token">
+            <column name="token_id" type="varchar(10000)"></column>
+            <column name="token" type="varchar(10000)"/>
+            <column name="authentication" type="varchar(10000)"/>
+        </createTable>
     </changeSet>
 
 </databaseChangeLog>

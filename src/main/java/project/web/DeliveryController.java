@@ -20,11 +20,6 @@ public class DeliveryController {
         deliveryService.acceptDelivery(acceptDeliveryDto, principal.getName());
     }
 
-    @PutMapping
-    public void updateDelivery(@RequestBody AcceptDeliveryDto acceptDeliveryDto) {
-        deliveryService.updateDelivery(acceptDeliveryDto);
-    }
-
     @DeleteMapping
     public void deleteDelivery(UUID id) {
         deliveryService.deleteDelivery(id);

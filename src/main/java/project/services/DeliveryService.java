@@ -8,8 +8,6 @@ public interface DeliveryService {
 
     void acceptDelivery(AcceptDeliveryDto acceptDeliveryDto, String email);
 
-    void updateDelivery(AcceptDeliveryDto acceptDeliveryDto);
-
     void deleteDelivery(UUID id);
 
 }

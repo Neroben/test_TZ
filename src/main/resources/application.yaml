@@ -13,3 +13,16 @@ spring:
   h2:
     console:
       enabled: true
+authentication:
+  client-id: user
+  client-secret: secret
+  access-token-validity-in-seconds: 7200 # 2 hours
+  refresh-token-validity-in-seconds: 864000 # 10 days
+  authorization-grant-types: password,authorization_code,refresh_token
+security:
+  oauth2:
+    authorization:
+      jwt:
+        key-store: classpath:jwt/jwt.jks
+        key-alias: jwt
+        key-store-password: storePassword

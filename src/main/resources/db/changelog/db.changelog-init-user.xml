@@ -7,7 +7,7 @@
         <insert tableName="users">
             <column name="id">54ac0c06-4721-11ec-81d3-0242ac130003</column>
             <column name="email">admin</column>
-            <column name="password">admin</column>
+            <column name="password">$2a$12$UqcqIxaJhAMK4U/vFjhqBOkl5hfqgEjg6dNlqZQLHiYZxkLkV59g.</column> <!--admin-->
             <column name="authority">ADMIN</column>
         </insert>
         <insert tableName="users">

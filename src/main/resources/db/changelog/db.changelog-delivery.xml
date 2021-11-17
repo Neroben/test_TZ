@@ -1,0 +1,27 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+<changeSet id="171120210-1-2" author="dontsov">
+    <insert tableName="delivery_history">
+        <column name="id">55ac0c06-4721-11ec-81d3-0242ac130005</column>
+        <column name="consumer_id">54ac0c06-4721-11ec-81d3-0242ac130005</column>
+        <column name="date">1111111</column>
+    </insert>
+    <insert tableName="products">
+        <column name="id">51ac0c06-4721-11ec-81d3-0242ac130005</column>
+        <column name="name">Red apple</column>
+        <column name="supplier_id">54ac0c06-4721-11ec-81d3-0242ac130004</column>
+    </insert>
+    <insert tableName="order_line">
+        <column name="id">14949342-9e08-41c5-a9a5-7892abad007c</column>
+        <column name="price">100</column>
+        <column name="weight">101</column>
+        <column name="delivery_id">55ac0c06-4721-11ec-81d3-0242ac130005</column>
+        <column name="product_id">51ac0c06-4721-11ec-81d3-0242ac130005</column>
+    </insert>
+
+</changeSet>
+
+</databaseChangeLog>

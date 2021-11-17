@@ -5,19 +5,16 @@ import org.springframework.stereotype.Service;
 import project.persistence.entity.DeliveryHistoryEntity;
 import project.persistence.entity.OrderLineEntity;
 import project.persistence.entity.ProductEntity;
-import project.persistence.repository.DeliveryHistoryRepository;
-import project.persistence.repository.OrderLineRepository;
-import project.persistence.repository.ProductRepository;
-import project.persistence.repository.UserRepository;
+import project.persistence.repository.*;
 import project.services.DeliveryService;
 import project.services.dto.AcceptDeliveryDto;
 import project.services.dto.CreateOrderLineDto;
 import project.services.mapper.DeliveryHistoryMapper;
-import project.services.mapper.OrderLineMapper;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
@@ -30,9 +27,9 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     private final ProductRepository productRepository;
 
-    private final UserRepository userRepository;
+    private final ProductPriceRepository productPriceRepository;
 
-    private final OrderLineMapper orderLineMapper;
+    private final UserRepository userRepository;
 
     private final DeliveryHistoryMapper deliveryHistoryMapper;
 
@@ -61,27 +58,26 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     private void createOrderLine(CreateOrderLineDto orderLineDto, DeliveryHistoryEntity delivery, UUID supplierId) {
         ProductEntity product = productRepository.findById(orderLineDto.getProductId()).orElseThrow(() -> new EntityNotFoundException(""));
-        if(product.getSupplier().getId() != supplierId) {
+        if (product.getSupplier().getId() != supplierId) {
             throw new RuntimeException("Oouups");
         }
         orderLineRepository.save(
                 OrderLineEntity.builder()
-                .price(getActualPrice(product))
-                .weight(orderLineDto.getWeight())
-                .delivery(delivery)
-                .product(product)
-                .build());
+                        .price(getActualPrice(product))
+                        .weight(orderLineDto.getWeight())
+                        .delivery(delivery)
+                        .product(product)
+                        .build());
     }
 
     private BigDecimal getActualPrice(ProductEntity product) {
-        return BigDecimal.ZERO;
-    }
-
-    public void updateDelivery(AcceptDeliveryDto acceptDeliveryDto) {
-
+        return productPriceRepository.findActualPrice(product, LocalDateTime.now())
+                .orElseThrow(() -> new RuntimeException("Ouups"))
+                .getPrice();
     }
 
     public void deleteDelivery(UUID id) {
-
+        DeliveryHistoryEntity delivery = deliveryRepository.findById(id).orElseThrow(() -> new RuntimeException("Delivery not found"));
+        deliveryRepository.delete(delivery);
     }
 }
