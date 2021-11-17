@@ -12,8 +12,10 @@ import java.util.stream.Collectors;
 @Mapper
 public interface ProductMapper {
 
+    @Mapping(target = "supplier.id", source = "supplierId")
     ProductEntity toEntity(ProductInformationDto dto);
 
+    @Mapping(target = "supplierId", source = "supplier.id")
     ProductInformationDto toDto(ProductEntity entity);
 
     default List<ProductInformationDto> toDtos(Collection<ProductEntity> entities){

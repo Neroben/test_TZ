@@ -1,14 +1,22 @@
 package project.persistence.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.UUID;
 
 @Entity
+@Table(name = "order_line")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class OrderLineEntity {
 
     @Id
@@ -16,7 +24,7 @@ public class OrderLineEntity {
     @GenericGenerator(name = "order_line_uuid", strategy = "uuid")
     private UUID id;
 
-    private BigInteger price;
+    private BigDecimal price;
 
     private BigInteger weight;
 

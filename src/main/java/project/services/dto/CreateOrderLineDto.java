@@ -7,10 +7,7 @@ import java.math.BigInteger;
 import java.util.UUID;
 
 @Data
-public class OrderLineDto {
-
-    @NotNull
-    private BigInteger price;
+public class CreateOrderLineDto {
 
     @NotNull
     private BigInteger weight;

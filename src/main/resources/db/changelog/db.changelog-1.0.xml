@@ -61,14 +61,16 @@
             <column name="id" type="UUID">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="price" type="bigint">
+            <column name="price" type="decimal">
                 <constraints nullable="false"/>
             </column>
             <column name="weight" type="bigint">
                 <constraints nullable="false"/>
             </column>
             <column name="delivery_id" type="UUID">
-                <constraints references="delivery_history(id)" foreignKeyName="fk_order_line_delivery" nullable="false"/>
+                <constraints references="delivery_history(id)"
+                             foreignKeyName="fk_order_line_delivery"
+                             nullable="false"/>
             </column>
             <column name="product_id" type="UUID">
                 <constraints references="products(id)" foreignKeyName="fk_order_line_products" nullable="false"/>

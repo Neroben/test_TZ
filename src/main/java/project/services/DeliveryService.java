@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public interface DeliveryService {
 
-    void acceptDelivery(AcceptDeliveryDto acceptDeliveryDto);
+    void acceptDelivery(AcceptDeliveryDto acceptDeliveryDto, String email);
 
     void updateDelivery(AcceptDeliveryDto acceptDeliveryDto);
 

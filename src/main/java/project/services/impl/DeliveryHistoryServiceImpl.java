@@ -21,7 +21,7 @@ public class DeliveryHistoryServiceImpl implements DeliveryHistoryService {
     public List<DeliveryHistoryDto> getAll() {
         List<DeliveryHistoryEntity> deliveryList = deliveryHistoryRepository.findAll();
         List<DeliveryHistoryDto> deliveryHistoryDtos = deliveryHistoryMapper.toDtos(deliveryList);
-        return List.of();
+        return deliveryHistoryDtos;
     }
 
 }

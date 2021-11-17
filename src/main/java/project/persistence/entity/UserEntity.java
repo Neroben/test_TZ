@@ -1,16 +1,14 @@
 package project.persistence.entity;
 
 import lombok.Data;
-import lombok.Getter;
 import org.hibernate.annotations.GenericGenerator;
 import project.security.GrantedAuthorityEnum;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
+@Table(name = "users")
 @Data
 public class UserEntity {
 
@@ -23,6 +21,7 @@ public class UserEntity {
 
     private String password;
 
+    @Enumerated(EnumType.STRING)
     private GrantedAuthorityEnum authority;
 
 }

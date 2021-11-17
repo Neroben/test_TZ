@@ -1,6 +1,5 @@
 package project.services.mapper;
 
-import org.apache.catalina.User;
 import org.mapstruct.Mapper;
 import project.persistence.entity.UserEntity;
 import project.services.dto.RegistrationUserDto;

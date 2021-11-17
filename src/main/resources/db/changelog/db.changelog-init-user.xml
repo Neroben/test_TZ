@@ -1,0 +1,27 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="171121-1-1" author="dontsov">
+        <insert tableName="users">
+            <column name="id">54ac0c06-4721-11ec-81d3-0242ac130003</column>
+            <column name="email">admin</column>
+            <column name="password">admin</column>
+            <column name="authority">ADMIN</column>
+        </insert>
+        <insert tableName="users">
+            <column name="id">54ac0c06-4721-11ec-81d3-0242ac130004</column>
+            <column name="email">supplier</column>
+            <column name="password">supplier</column>
+            <column name="authority">SUPPLIER</column>
+        </insert>
+        <insert tableName="users">
+            <column name="id">54ac0c06-4721-11ec-81d3-0242ac130005</column>
+            <column name="email">consumer</column>
+            <column name="password">consumer</column>
+            <column name="authority">CONSUMER</column>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
