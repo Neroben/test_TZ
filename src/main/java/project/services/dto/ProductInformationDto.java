@@ -2,6 +2,7 @@ package project.services.dto;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Data
@@ -12,5 +13,7 @@ public class ProductInformationDto {
     private String name;
 
     private UUID supplierId;
+
+    private BigDecimal actualPrice;
 
 }

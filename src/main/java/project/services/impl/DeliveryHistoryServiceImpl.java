@@ -6,6 +6,7 @@ import project.persistence.entity.DeliveryHistoryEntity;
 import project.persistence.repository.DeliveryHistoryRepository;
 import project.services.DeliveryHistoryService;
 import project.services.dto.DeliveryHistoryDto;
+import project.services.dto.GetDeliveryHistoryDto;
 import project.services.mapper.DeliveryHistoryMapper;
 
 import java.util.List;
@@ -18,10 +19,11 @@ public class DeliveryHistoryServiceImpl implements DeliveryHistoryService {
 
     private final DeliveryHistoryMapper deliveryHistoryMapper;
 
-    public List<DeliveryHistoryDto> getAll() {
-        List<DeliveryHistoryEntity> deliveryList = deliveryHistoryRepository.findAll();
-        List<DeliveryHistoryDto> deliveryHistoryDtos = deliveryHistoryMapper.toDtos(deliveryList);
-        return deliveryHistoryDtos;
+    @Override
+    public List<DeliveryHistoryDto> getAllByPeriod(GetDeliveryHistoryDto dto) {
+        List<DeliveryHistoryEntity> deliveryList =
+                deliveryHistoryRepository.findAllByPeriod(dto.getDateStart(), dto.getDateEnd());
+        return deliveryHistoryMapper.toDtos(deliveryList);
     }
 
 }

@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import project.errorhandling.exception.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,9 +22,43 @@ public class ApiRestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(apiError, apiError.getHttpStatus());
     }
 
-    @ExceptionHandler(Exception.class)
-    ResponseEntity<ApiError> handleUpdateSupplyAgreementException(Exception ex,
+    @ExceptionHandler(UsernameExistException.class)
+    ResponseEntity<ApiError> handleUsernameExistException(UsernameExistException ex,
                                                                   HttpServletRequest request) {
+        log.warn(LOGGING_EXCEPTION_MESSAGE, ex.getMessage(), ExceptionUtils.getRootCauseMessage(ex));
+        ApiError apiError = new ApiError(BAD_REQUEST, ex.getMessage(), request.getRequestURI());
+        return buildResponse(apiError);
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    ResponseEntity<ApiError> handleUserNotFoundException(UserNotFoundException ex,
+                                                                  HttpServletRequest request) {
+        log.warn(LOGGING_EXCEPTION_MESSAGE, ex.getMessage(), ExceptionUtils.getRootCauseMessage(ex));
+        ApiError apiError = new ApiError(BAD_REQUEST, ex.getMessage(), request.getRequestURI());
+        return buildResponse(apiError);
+    }
+
+    @ExceptionHandler(OrderLinePermissionException.class)
+    ResponseEntity<ApiError> handleOrderLinePermissionException(OrderLinePermissionException ex,
+                                                         HttpServletRequest request) {
+        log.warn(LOGGING_EXCEPTION_MESSAGE, ex.getMessage(), ExceptionUtils.getRootCauseMessage(ex));
+        ApiError apiError = new ApiError(BAD_REQUEST, ex.getMessage(), request.getRequestURI());
+        return buildResponse(apiError);
+    }
+
+    @ExceptionHandler(ActualPriceNotFoundException.class)
+    ResponseEntity<ApiError> handleActualPriceNotFoundException(ActualPriceNotFoundException ex,
+                                                                HttpServletRequest request) {
+
+        log.warn(LOGGING_EXCEPTION_MESSAGE, ex.getMessage(), ExceptionUtils.getRootCauseMessage(ex));
+        ApiError apiError = new ApiError(BAD_REQUEST, ex.getMessage(), request.getRequestURI());
+        return buildResponse(apiError);
+    }
+
+    @ExceptionHandler(ProductNotFoundException.class)
+    ResponseEntity<ApiError> handleProductNotFoundException(ProductNotFoundException ex,
+                                                                HttpServletRequest request) {
+
         log.warn(LOGGING_EXCEPTION_MESSAGE, ex.getMessage(), ExceptionUtils.getRootCauseMessage(ex));
         ApiError apiError = new ApiError(BAD_REQUEST, ex.getMessage(), request.getRequestURI());
         return buildResponse(apiError);

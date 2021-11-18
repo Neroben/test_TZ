@@ -8,10 +8,15 @@ import project.services.dto.RegistrationUserDto;
 
 import javax.validation.Valid;
 
+import static project.security.configuration.ResourceServerConfiguration.BASE_API;
+import static project.web.UserController.USER_URL;
+
 @RestController
-@RequestMapping("api/v1/user")
+@RequestMapping(BASE_API + USER_URL)
 @RequiredArgsConstructor
 public class UserController {
+
+    public static final String USER_URL = "/user";
 
     private final UserService userService;
 

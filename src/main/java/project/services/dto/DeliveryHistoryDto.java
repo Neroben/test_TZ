@@ -4,14 +4,13 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 @Data
 public class DeliveryHistoryDto {
 
-    private UUID consumerId;
+    private String consumerEmail;
 
-    private UUID supplierId;
+    private String supplierEmail;
 
     private LocalDateTime date;
 

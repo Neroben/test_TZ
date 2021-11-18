@@ -106,6 +106,12 @@
             <artifactId>spring-security-oauth2-autoconfigure</artifactId>
             <version>2.2.13.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>2.13.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>

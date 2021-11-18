@@ -1,24 +1,28 @@
 package project.web;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import project.services.DeliveryHistoryService;
 import project.services.dto.DeliveryHistoryDto;
+import project.services.dto.GetDeliveryHistoryDto;
 
 import java.util.List;
 
+import static project.security.configuration.ResourceServerConfiguration.BASE_API;
+import static project.web.DeliveryHistoryController.HISTORY_URL;
+
 @RestController
-@RequestMapping("api/v1/history")
+@RequestMapping(BASE_API + HISTORY_URL)
 @RequiredArgsConstructor
 public class DeliveryHistoryController {
 
+    public static final String HISTORY_URL = "/history";
+
     private final DeliveryHistoryService deliveryHistoryService;
 
-    @GetMapping
-    public List<DeliveryHistoryDto> getAll() {
-        return deliveryHistoryService.getAll();
+    @PostMapping
+    public List<DeliveryHistoryDto> getAllByPeriod(@RequestBody GetDeliveryHistoryDto dto) {
+        return deliveryHistoryService.getAllByPeriod(dto);
     }
 
 }

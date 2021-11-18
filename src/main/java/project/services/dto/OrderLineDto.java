@@ -4,7 +4,6 @@ import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigInteger;
-import java.util.UUID;
 
 @Data
 public class OrderLineDto {
@@ -16,6 +15,6 @@ public class OrderLineDto {
     private BigInteger weight;
 
     @NotNull
-    private UUID productId;
+    private String productName;
 
 }

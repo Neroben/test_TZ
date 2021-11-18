@@ -10,4 +10,6 @@ public interface ProductRepository extends JpaRepository<ProductEntity, UUID> {
 
     List<ProductEntity> findBySupplierId(UUID id);
 
+    void deleteByIdAndSupplierId(UUID id, UUID supplierId);
+
 }

@@ -2,19 +2,25 @@ package project.services.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import project.errorhandling.exception.ActualPriceNotFoundException;
+import project.errorhandling.exception.OrderLinePermissionException;
+import project.errorhandling.exception.UserNotFoundException;
 import project.persistence.entity.DeliveryHistoryEntity;
 import project.persistence.entity.OrderLineEntity;
 import project.persistence.entity.ProductEntity;
-import project.persistence.repository.*;
+import project.persistence.entity.UserEntity;
+import project.persistence.repository.DeliveryHistoryRepository;
+import project.persistence.repository.OrderLineRepository;
+import project.persistence.repository.ProductRepository;
+import project.persistence.repository.UserRepository;
 import project.services.DeliveryService;
+import project.services.ProductService;
 import project.services.dto.AcceptDeliveryDto;
 import project.services.dto.CreateOrderLineDto;
 import project.services.mapper.DeliveryHistoryMapper;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
@@ -27,7 +33,7 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     private final ProductRepository productRepository;
 
-    private final ProductPriceRepository productPriceRepository;
+    private final ProductService productService;
 
     private final UserRepository userRepository;
 
@@ -35,14 +41,13 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     @Transactional
     public void acceptDelivery(AcceptDeliveryDto acceptDeliveryDto, String email) {
-        DeliveryHistoryEntity delivery = deliveryHistoryMapper.toEntity(acceptDeliveryDto, getConsumerId(email));
+        DeliveryHistoryEntity delivery = deliveryHistoryMapper.toEntity(acceptDeliveryDto, findUser(email).getId());
         createAllOrderLine(deliveryRepository.save(delivery), acceptDeliveryDto);
     }
 
-    private UUID getConsumerId(String email) {
+    private UserEntity findUser(String email) {
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new EntityNotFoundException("User is not found"))
-                .getId();
+                .orElseThrow(() -> new UserNotFoundException(email));
     }
 
     private void createAllOrderLine(DeliveryHistoryEntity delivery, AcceptDeliveryDto acceptDeliveryDto) {
@@ -59,25 +64,20 @@ public class DeliveryServiceImpl implements DeliveryService {
     private void createOrderLine(CreateOrderLineDto orderLineDto, DeliveryHistoryEntity delivery, UUID supplierId) {
         ProductEntity product = productRepository.findById(orderLineDto.getProductId()).orElseThrow(() -> new EntityNotFoundException(""));
         if (product.getSupplier().getId() != supplierId) {
-            throw new RuntimeException("Oouups");
+            throw new OrderLinePermissionException();
         }
         orderLineRepository.save(
                 OrderLineEntity.builder()
-                        .price(getActualPrice(product))
+                        .price(productService.getActualPrice(product)
+                                .orElseThrow(() -> new ActualPriceNotFoundException(product.getId().toString())))
                         .weight(orderLineDto.getWeight())
                         .delivery(delivery)
                         .product(product)
                         .build());
     }
 
-    private BigDecimal getActualPrice(ProductEntity product) {
-        return productPriceRepository.findActualPrice(product, LocalDateTime.now())
-                .orElseThrow(() -> new RuntimeException("Ouups"))
-                .getPrice();
-    }
-
-    public void deleteDelivery(UUID id) {
-        DeliveryHistoryEntity delivery = deliveryRepository.findById(id).orElseThrow(() -> new RuntimeException("Delivery not found"));
-        deliveryRepository.delete(delivery);
+    public void deleteDelivery(UUID id, String email) {
+        UserEntity user = findUser(email);
+        deliveryRepository.deleteByIdAndConsumerId(id, user.getId());
     }
 }

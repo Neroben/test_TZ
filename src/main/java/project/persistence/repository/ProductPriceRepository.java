@@ -12,7 +12,10 @@ import java.util.Optional;
 
 public interface ProductPriceRepository extends JpaRepository<ProductPriceEntity, BigInteger> {
 
-    @Query("select price from ProductPriceEntity price where price.product = :product and price.dateStart > :date and price.dateEnd < :date")
+    @Query("select price from ProductPriceEntity price where price.product = :product and price.dateStart < :date and price.dateEnd > :date")
     Optional<ProductPriceEntity> findActualPrice(@Param("product")ProductEntity product, @Param("date") LocalDateTime date);
+
+//    @Query("select ")
+//    Optional<ProductPriceEntity> findByDateInPeriod(LocalDateTime dateTime);
 
 }

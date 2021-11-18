@@ -11,10 +11,15 @@ import project.services.dto.ProductInformationDto;
 import java.util.List;
 import java.util.UUID;
 
+import static project.security.configuration.ResourceServerConfiguration.BASE_API;
+import static project.web.ProductController.PRODUCT_URL;
+
 @RestController
-@RequestMapping("api/v1/product")
+@RequestMapping(BASE_API + PRODUCT_URL)
 @RequiredArgsConstructor
 public class ProductController {
+
+    public static final String PRODUCT_URL = "/product";
 
     private final ProductService productService;
 

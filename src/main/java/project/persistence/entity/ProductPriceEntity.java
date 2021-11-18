@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "product_prices")
@@ -17,9 +17,9 @@ public class ProductPriceEntity {
 
     private BigDecimal price;
 
-    private LocalDate dateStart;
+    private LocalDateTime dateStart;
 
-    private LocalDate dateEnd;
+    private LocalDateTime dateEnd;
 
     @ManyToOne
     @JoinColumn(name = "product_id")

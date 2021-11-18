@@ -8,6 +8,6 @@ public interface ProductModificationService {
 
     void saveProduct(ProductInformationDto productInformationDto);
 
-    void deleteProduct(UUID id);
+    void deleteProduct(UUID id, String email);
 
 }

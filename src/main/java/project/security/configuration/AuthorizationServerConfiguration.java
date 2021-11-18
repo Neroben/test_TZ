@@ -28,7 +28,6 @@ import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFacto
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider;
 import org.springframework.util.Assert;
 
-import javax.sql.DataSource;
 import java.util.Collections;
 import java.util.Optional;
 
@@ -50,8 +49,6 @@ class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdap
     private final ApplicationContext context;
 
     private final JwtAccessTokenConverter accessTokenConverter;
-
-    private final DataSource dataSource;
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {

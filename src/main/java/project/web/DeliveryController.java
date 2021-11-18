@@ -8,10 +8,14 @@ import project.services.dto.AcceptDeliveryDto;
 import java.security.Principal;
 import java.util.UUID;
 
+import static project.security.configuration.ResourceServerConfiguration.BASE_API;
+
 @RestController
-@RequestMapping("api/v1/delivery")
+@RequestMapping(BASE_API + DeliveryController.DELIVERY_URL)
 @RequiredArgsConstructor
 public class DeliveryController {
+
+    public static final String DELIVERY_URL = "/delivery";
 
     private final DeliveryService deliveryService;
 
@@ -20,9 +24,9 @@ public class DeliveryController {
         deliveryService.acceptDelivery(acceptDeliveryDto, principal.getName());
     }
 
-    @DeleteMapping
-    public void deleteDelivery(UUID id) {
-        deliveryService.deleteDelivery(id);
+    @DeleteMapping("/{id}")
+    public void deleteDelivery(@PathVariable("id") UUID id, Principal principal) {
+        deliveryService.deleteDelivery(id, principal.getName());
     }
 
 }
