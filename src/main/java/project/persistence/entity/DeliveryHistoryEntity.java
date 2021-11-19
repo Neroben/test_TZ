@@ -1,8 +1,6 @@
 package project.persistence.entity;
 
 import lombok.Data;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -26,8 +24,7 @@ public class DeliveryHistoryEntity {
 
     private LocalDateTime date;
 
-    @OneToMany(mappedBy = "delivery")
-    @Cascade(CascadeType.REMOVE)
+    @OneToMany(mappedBy = "delivery", cascade = {CascadeType.REMOVE, CascadeType.REFRESH})
     private List<OrderLineEntity> orderLineList;
 
     @PrePersist

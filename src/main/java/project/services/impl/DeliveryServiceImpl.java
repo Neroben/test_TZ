@@ -57,12 +57,14 @@ public class DeliveryServiceImpl implements DeliveryService {
     }
 
     private UUID getSupplierIdByOrderLine(CreateOrderLineDto orderLineDto) {
-        ProductEntity product = productRepository.findById(orderLineDto.getProductId()).orElseThrow(() -> new EntityNotFoundException(""));
+        ProductEntity product = productRepository.findById(orderLineDto.getProductId())
+                .orElseThrow(() -> new EntityNotFoundException(""));
         return product.getSupplier().getId();
     }
 
     private void createOrderLine(CreateOrderLineDto orderLineDto, DeliveryHistoryEntity delivery, UUID supplierId) {
-        ProductEntity product = productRepository.findById(orderLineDto.getProductId()).orElseThrow(() -> new EntityNotFoundException(""));
+        ProductEntity product = productRepository.findById(orderLineDto.getProductId())
+                .orElseThrow(() -> new EntityNotFoundException(""));
         if (product.getSupplier().getId() != supplierId) {
             throw new OrderLinePermissionException();
         }
@@ -76,8 +78,7 @@ public class DeliveryServiceImpl implements DeliveryService {
                         .build());
     }
 
-    public void deleteDelivery(UUID id, String email) {
-        UserEntity user = findUser(email);
-        deliveryRepository.deleteByIdAndConsumerId(id, user.getId());
+    public void deleteDelivery(UUID id) {
+        deliveryRepository.deleteById(id);
     }
 }

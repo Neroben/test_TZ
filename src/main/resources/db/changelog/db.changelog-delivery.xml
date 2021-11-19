@@ -19,6 +19,38 @@
         <column name="name">Green apple</column>
         <column name="supplier_id">54ac0c06-4721-11ec-81d3-0242ac130004</column>
     </insert>
+    <insert tableName="products">
+        <column name="id">51ac0c06-4721-32ec-81d3-0242ac130005</column>
+        <column name="name">Yellow apple</column>
+        <column name="supplier_id">54ac0c06-4721-11ec-81d3-0243ac130004</column>
+        <column name="supplier_id">54ac0c06-4721-11ec-81d3-0243ac130004</column>
+    </insert>
+    <insert tableName="products">
+        <column name="id">56ac0c06-4721-32ec-81d3-0242ac130005</column>
+        <column name="name">Devil apple</column>
+        <column name="supplier_id">54ac0c06-4721-11ec-81d3-0243ac130004</column>
+    </insert>
+    <insert tableName="product_prices">
+        <column name="id">1</column>
+        <column name="price">1000</column>
+        <column name="date_start">2021-10-18 01:02:29</column>
+        <column name="date_end">2022-11-18 01:02:29</column>
+        <column name="product_id">51ac0c06-4721-11ec-81d3-0242ac130005</column>
+    </insert>
+    <insert tableName="product_prices">
+        <column name="id">2</column>
+        <column name="price">1500</column>
+        <column name="date_start">2021-10-18 01:02:29</column>
+        <column name="date_end">2022-11-18 01:02:29</column>
+        <column name="product_id">51ac0c06-4721-12ec-81d3-0242ac130005</column>
+    </insert>
+    <insert tableName="product_prices">
+        <column name="id">3</column>
+        <column name="price">1</column>
+        <column name="date_start">2021-10-18 01:02:29</column>
+        <column name="date_end">2022-11-18 01:02:29</column>
+        <column name="product_id">51ac0c06-4721-32ec-81d3-0242ac130005</column>
+    </insert>
     <insert tableName="order_line">
         <column name="id">14949342-9e08-41c5-a9a5-7892abad007c</column>
         <column name="price">100</column>
@@ -31,6 +63,18 @@
         <column name="price">50</column>
         <column name="weight">16</column>
         <column name="delivery_id">55ac0c06-4721-11ec-81d3-0242ac130005</column>
+        <column name="product_id">51ac0c06-4721-12ec-81d3-0242ac130005</column>
+    </insert>
+    <insert tableName="delivery_history">
+        <column name="id">55ac0c06-4721-11ec-81d3-0242ac130025</column>
+        <column name="consumer_id">54ac0c06-4721-11ec-81d3-0242ac130005</column>
+        <column name="date">2021-11-18 01:02:29</column>
+    </insert>
+    <insert tableName="order_line">
+        <column name="id">55ac0c06-4721-11ec-81d9-0242ac130015</column>
+        <column name="price">50</column>
+        <column name="weight">16</column>
+        <column name="delivery_id">55ac0c06-4721-11ec-81d3-0242ac130025</column>
         <column name="product_id">51ac0c06-4721-12ec-81d3-0242ac130005</column>
     </insert>
 

@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import project.services.ProductModificationService;
 import project.services.ProductPriceService;
+import project.services.dto.DeleteProductPriceDto;
 import project.services.dto.ProductInformationDto;
 import project.services.dto.ProductPriceDto;
 
@@ -33,15 +34,16 @@ public class ProductModificationController {
 
     @PostMapping("/price")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createProductPrice(@RequestBody ProductPriceDto priceDto) {
-        productPriceService.createProductPrice(priceDto);
+    public void createProductPrice(@RequestBody ProductPriceDto priceDto, Principal principal) {
+        productPriceService.createProductPrice(priceDto, principal.getName());
     }
 
-    @PutMapping
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateProduct(@RequestBody ProductInformationDto productDto) {
-        productModificationService.saveProduct(productDto);
+    @DeleteMapping("/price")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void deleteProductPrice(@RequestBody DeleteProductPriceDto priceDto, Principal principal) {
+        productPriceService.deleteProductPrice(priceDto, principal.getName());
     }
+
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

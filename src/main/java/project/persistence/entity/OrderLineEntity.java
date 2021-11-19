@@ -28,7 +28,7 @@ public class OrderLineEntity {
 
     private BigInteger weight;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "delivery_id")
     private DeliveryHistoryEntity delivery;
 

@@ -52,7 +52,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Optional<BigDecimal> getActualPrice(ProductEntity product) {
-        return productPriceRepository.findActualPrice(product, LocalDateTime.now())
+        return productPriceRepository.findActualPrice(product.getId(), LocalDateTime.now())
                 .map(ProductPriceEntity::getPrice);
     }
 
