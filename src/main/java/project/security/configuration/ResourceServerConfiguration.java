@@ -30,6 +30,8 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .antMatchers(HttpMethod.POST, SLASH_BASE_API + PRODUCT_MODIFICATION_URL).hasAuthority(AUTHORITY_SUPPLIER)
                 .antMatchers(HttpMethod.PUT, SLASH_BASE_API + PRODUCT_MODIFICATION_URL).hasAuthority(AUTHORITY_SUPPLIER)
                 .antMatchers(HttpMethod.DELETE, SLASH_BASE_API + PRODUCT_MODIFICATION_URL).hasAuthority(AUTHORITY_SUPPLIER)
+                .antMatchers(HttpMethod.POST, SLASH_BASE_API + PRODUCT_MODIFICATION_URL + ANY_URL).hasAuthority(AUTHORITY_SUPPLIER)
+                .antMatchers(HttpMethod.DELETE, SLASH_BASE_API + PRODUCT_MODIFICATION_URL + ANY_URL).hasAuthority(AUTHORITY_SUPPLIER)
                 .antMatchers(HttpMethod.POST, SLASH_BASE_API + DELIVERY_URL).hasAuthority(AUTHORITY_CONSUMER)
                 .antMatchers(HttpMethod.DELETE, SLASH_BASE_API + DELIVERY_URL + ANY_URL).hasAuthority(AUTHORITY_CONSUMER)
                 .anyRequest().authenticated();

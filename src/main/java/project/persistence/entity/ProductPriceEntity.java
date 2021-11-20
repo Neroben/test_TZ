@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 public class ProductPriceEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private BigInteger id;
 
     private BigDecimal price;

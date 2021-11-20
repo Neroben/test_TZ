@@ -13,21 +13,21 @@
         <insert tableName="users">
             <column name="id">54ac0c06-4721-11ec-81d3-0242ac130004</column>
             <column name="email">supplier</column>
-            <column name="password">supplier</column>
+            <column name="password">$2a$12$UqcqIxaJhAMK4U/vFjhqBOkl5hfqgEjg6dNlqZQLHiYZxkLkV59g.</column>
             <column name="authority">SUPPLIER</column>
         </insert>
 
         <insert tableName="users">
             <column name="id">54ac0c06-4721-11ec-81d3-0243ac130004</column>
             <column name="email">testDelivery</column>
-            <column name="password">supplier</column>
+            <column name="password">$2a$12$UqcqIxaJhAMK4U/vFjhqBOkl5hfqgEjg6dNlqZQLHiYZxkLkV59g.</column>
             <column name="authority">SUPPLIER</column>
         </insert>
 
         <insert tableName="users">
             <column name="id">54ac0c06-4721-11ec-81d3-0242ac130005</column>
             <column name="email">consumer</column>
-            <column name="password">consumer</column>
+            <column name="password">$2a$12$UqcqIxaJhAMK4U/vFjhqBOkl5hfqgEjg6dNlqZQLHiYZxkLkV59g.</column>
             <column name="authority">CONSUMER</column>
         </insert>
     </changeSet>

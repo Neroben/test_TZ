@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import project.errorhandling.exception.PricePeriodException;
 import project.errorhandling.exception.ProductNotFoundException;
+import project.errorhandling.exception.ProductPriceNotFoundException;
 import project.persistence.entity.ProductEntity;
 import project.persistence.entity.ProductPriceEntity;
 import project.persistence.repository.ProductPriceRepository;
@@ -47,7 +48,7 @@ public class ProductPriceServiceImpl implements ProductPriceService {
     @Override
     public void deleteProductPrice(DeleteProductPriceDto dto, String email) {
         ProductPriceEntity actualPrice = productPriceRepository.findActualPrice(dto.getProductId(), dto.getDate())
-                .orElseThrow();
+                .orElseThrow(() -> new ProductPriceNotFoundException(dto.getProductId().toString()));
         productPriceRepository.deleteByIdAndUserEmail(actualPrice.getId(), email);
     }
 }

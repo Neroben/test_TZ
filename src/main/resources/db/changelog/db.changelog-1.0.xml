@@ -73,7 +73,7 @@
                              nullable="false"/>
             </column>
             <column name="product_id" type="UUID">
-                <constraints references="products(id)" foreignKeyName="fk_order_line_products" nullable="false"/>
+                <constraints references="products(id)" foreignKeyName="fk_order_line_products"/>
             </column>
         </createTable>
     </changeSet>

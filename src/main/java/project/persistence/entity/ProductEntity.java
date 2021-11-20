@@ -23,6 +23,9 @@ public class ProductEntity {
     @JoinColumn(name = "supplier_id")
     private UserEntity supplier;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
     private List<ProductPriceEntity> prices;
+
+    @OneToMany(mappedBy = "product")
+    private List<OrderLineEntity> orderLines;
 }

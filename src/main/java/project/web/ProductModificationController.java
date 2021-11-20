@@ -9,6 +9,7 @@ import project.services.dto.DeleteProductPriceDto;
 import project.services.dto.ProductInformationDto;
 import project.services.dto.ProductPriceDto;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.UUID;
 
@@ -28,8 +29,8 @@ public class ProductModificationController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createProduct(@RequestBody ProductInformationDto productDto) {
-        productModificationService.saveProduct(productDto);
+    public void createProduct(@RequestBody ProductInformationDto productDto, Principal principal) {
+        productModificationService.saveProduct(productDto, principal.getName());
     }
 
     @PostMapping("/price")
@@ -39,8 +40,8 @@ public class ProductModificationController {
     }
 
     @DeleteMapping("/price")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void deleteProductPrice(@RequestBody DeleteProductPriceDto priceDto, Principal principal) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteProductPrice(@RequestBody @Valid DeleteProductPriceDto priceDto, Principal principal) {
         productPriceService.deleteProductPrice(priceDto, principal.getName());
     }
 

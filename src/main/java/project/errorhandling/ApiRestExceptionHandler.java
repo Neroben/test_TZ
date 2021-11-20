@@ -49,7 +49,6 @@ public class ApiRestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ActualPriceNotFoundException.class)
     ResponseEntity<ApiError> handleActualPriceNotFoundException(ActualPriceNotFoundException ex,
                                                                 HttpServletRequest request) {
-
         log.warn(LOGGING_EXCEPTION_MESSAGE, ex.getMessage(), ExceptionUtils.getRootCauseMessage(ex));
         ApiError apiError = new ApiError(BAD_REQUEST, ex.getMessage(), request.getRequestURI());
         return buildResponse(apiError);
@@ -58,7 +57,22 @@ public class ApiRestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ProductNotFoundException.class)
     ResponseEntity<ApiError> handleProductNotFoundException(ProductNotFoundException ex,
                                                                 HttpServletRequest request) {
+        log.warn(LOGGING_EXCEPTION_MESSAGE, ex.getMessage(), ExceptionUtils.getRootCauseMessage(ex));
+        ApiError apiError = new ApiError(BAD_REQUEST, ex.getMessage(), request.getRequestURI());
+        return buildResponse(apiError);
+    }
 
+    @ExceptionHandler(PricePeriodException.class)
+    ResponseEntity<ApiError> handlePricePeriodException(PricePeriodException ex,
+                                                            HttpServletRequest request) {
+        log.warn(LOGGING_EXCEPTION_MESSAGE, ex.getMessage(), ExceptionUtils.getRootCauseMessage(ex));
+        ApiError apiError = new ApiError(BAD_REQUEST, ex.getMessage(), request.getRequestURI());
+        return buildResponse(apiError);
+    }
+
+    @ExceptionHandler(ProductPriceNotFoundException.class)
+    ResponseEntity<ApiError> handleProductPriceNotFoundException(ProductPriceNotFoundException ex,
+                                                        HttpServletRequest request) {
         log.warn(LOGGING_EXCEPTION_MESSAGE, ex.getMessage(), ExceptionUtils.getRootCauseMessage(ex));
         ApiError apiError = new ApiError(BAD_REQUEST, ex.getMessage(), request.getRequestURI());
         return buildResponse(apiError);

@@ -13,6 +13,8 @@ public interface ProductRepository extends JpaRepository<ProductEntity, UUID> {
 
     List<ProductEntity> findBySupplierId(UUID id);
 
+    Optional<ProductEntity> findByIdAndSupplierId(UUID id, UUID supplierId);
+
     void deleteByIdAndSupplierId(UUID id, UUID supplierId);
 
     @Query("select product from ProductEntity product join UserEntity user on product.supplier = user" +

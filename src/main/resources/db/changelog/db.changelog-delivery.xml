@@ -68,7 +68,7 @@
     <insert tableName="delivery_history">
         <column name="id">55ac0c06-4721-11ec-81d3-0242ac130025</column>
         <column name="consumer_id">54ac0c06-4721-11ec-81d3-0242ac130005</column>
-        <column name="date">2021-11-18 01:02:29</column>
+        <column name="date">2021-11-20 01:02:29</column>
     </insert>
     <insert tableName="order_line">
         <column name="id">55ac0c06-4721-11ec-81d9-0242ac130015</column>
