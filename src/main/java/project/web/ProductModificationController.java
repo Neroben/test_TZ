@@ -29,13 +29,13 @@ public class ProductModificationController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createProduct(@RequestBody ProductInformationDto productDto, Principal principal) {
+    public void createProduct(@RequestBody @Valid ProductInformationDto productDto, Principal principal) {
         productModificationService.saveProduct(productDto, principal.getName());
     }
 
     @PostMapping("/price")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createProductPrice(@RequestBody ProductPriceDto priceDto, Principal principal) {
+    public void createProductPrice(@RequestBody @Valid ProductPriceDto priceDto, Principal principal) {
         productPriceService.createProductPrice(priceDto, principal.getName());
     }
 
@@ -48,7 +48,7 @@ public class ProductModificationController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteProduct(@PathVariable UUID id, Principal principal) {
+    public void deleteProduct(@PathVariable("id") UUID id, Principal principal) {
         productModificationService.deleteProduct(id, principal.getName());
     }
 

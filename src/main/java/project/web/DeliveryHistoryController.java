@@ -6,6 +6,7 @@ import project.services.DeliveryHistoryService;
 import project.services.dto.DeliveryHistoryDto;
 import project.services.dto.GetDeliveryHistoryDto;
 
+import javax.validation.Valid;
 import java.util.List;
 
 import static project.security.configuration.ResourceServerConfiguration.BASE_API;
@@ -21,7 +22,7 @@ public class DeliveryHistoryController {
     private final DeliveryHistoryService deliveryHistoryService;
 
     @PostMapping
-    public List<DeliveryHistoryDto> getAllByPeriod(@RequestBody GetDeliveryHistoryDto dto) {
+    public List<DeliveryHistoryDto> getAllByPeriod(@RequestBody @Valid GetDeliveryHistoryDto dto) {
         return deliveryHistoryService.getAllByPeriod(dto);
     }
 
