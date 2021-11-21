@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import project.errorhandling.exception.ActualPriceNotFoundException;
 import project.errorhandling.exception.OrderLinePermissionException;
+import project.errorhandling.exception.ProductNotFoundException;
 import project.errorhandling.exception.UserNotFoundException;
 import project.persistence.entity.DeliveryHistoryEntity;
 import project.persistence.entity.OrderLineEntity;
@@ -19,7 +20,6 @@ import project.services.dto.AcceptDeliveryDto;
 import project.services.dto.CreateOrderLineDto;
 import project.services.mapper.DeliveryHistoryMapper;
 
-import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.UUID;
 
@@ -58,13 +58,13 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     private UUID getSupplierIdByOrderLine(CreateOrderLineDto orderLineDto) {
         ProductEntity product = productRepository.findById(orderLineDto.getProductId())
-                .orElseThrow(() -> new EntityNotFoundException(""));
+                .orElseThrow(() -> new ProductNotFoundException(orderLineDto.getProductId().toString()));
         return product.getSupplier().getId();
     }
 
     private void createOrderLine(CreateOrderLineDto orderLineDto, DeliveryHistoryEntity delivery, UUID supplierId) {
         ProductEntity product = productRepository.findById(orderLineDto.getProductId())
-                .orElseThrow(() -> new EntityNotFoundException(""));
+                .orElseThrow(() -> new ProductNotFoundException(orderLineDto.getProductId().toString()));
         if (product.getSupplier().getId() != supplierId) {
             throw new OrderLinePermissionException();
         }

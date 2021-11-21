@@ -32,9 +32,4 @@ public class ProductController {
     public List<ProductInformationDto> getProductBySupplier(@PathVariable UUID id) {
         return productService.getProductsBySupplier(id);
     }
-
-    @GetMapping
-    public List<ProductInformationDto> getAllProduct() {
-        return productService.getAllProducts();
-    }
 }

@@ -55,9 +55,4 @@ public class ProductServiceImpl implements ProductService {
         return productPriceRepository.findActualPrice(product.getId(), LocalDateTime.now())
                 .map(ProductPriceEntity::getPrice);
     }
-
-    @Override
-    public List<ProductInformationDto> getAllProducts() {
-        return List.of();
-    }
 }

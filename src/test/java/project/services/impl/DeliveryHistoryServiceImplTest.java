@@ -1,15 +1,15 @@
 package project.services.impl;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
+import project.persistence.entity.OrderLineEntity;
 import project.services.DeliveryHistoryService;
 import project.services.dto.DeliveryHistoryDto;
 import project.services.dto.GetDeliveryHistoryDto;
 import project.services.dto.OrderLineDto;
 
-import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
@@ -17,12 +17,22 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest
-@Transactional
-class DeliveryHistoryServiceImplTest {
+class DeliveryHistoryServiceImplTest extends AbstractIntegrationTest {
 
     @Autowired
     private DeliveryHistoryService deliveryHistoryService;
+
+    @BeforeEach
+    void setUp() {
+        OrderLineEntity orderLineEntity = initOrderLineEntity("supplier");
+        initDeliveryHistoryEntity(List.of(orderLineEntity));
+    }
+
+    @AfterEach
+    void dropAll() {
+        deleteAll();
+    }
+
 
     @Test
     void getAllByPeriod() {
@@ -31,21 +41,17 @@ class DeliveryHistoryServiceImplTest {
         DeliveryHistoryDto actual = allByPeriod.get(0);
         assertEquals("consumer", actual.getConsumerEmail());
         assertEquals("supplier", actual.getSupplierEmail());
-        assertEquals(2, actual.getOrderLines().size());
+        assertEquals(1, actual.getOrderLines().size());
         OrderLineDto orderLineDto = actual.getOrderLines().get(0);
-        assertEquals(BigDecimal.valueOf(100L), orderLineDto.getPrice());
+        assertEquals(BigDecimal.valueOf(50L), orderLineDto.getPrice());
         assertEquals(BigInteger.valueOf(101L), orderLineDto.getWeight());
-        assertEquals("Red apple", orderLineDto.getProductName());
-        OrderLineDto lineDto = actual.getOrderLines().get(1);
-        assertEquals(BigDecimal.valueOf(50L), lineDto.getPrice());
-        assertEquals(BigInteger.valueOf(16L), lineDto.getWeight());
-        assertEquals("Green apple", lineDto.getProductName());
+        assertEquals("product", orderLineDto.getProductName());
     }
 
     private GetDeliveryHistoryDto initGetDeliveryHistoryDto() {
         GetDeliveryHistoryDto getDeliveryHistoryDto = new GetDeliveryHistoryDto();
         getDeliveryHistoryDto.setDateStart(LocalDateTime.of(2020, 10, 30, 0, 0));
-        getDeliveryHistoryDto.setDateEnd(LocalDateTime.now().minusHours(1L));
+        getDeliveryHistoryDto.setDateEnd(LocalDateTime.now().plusHours(1L));
         return getDeliveryHistoryDto;
     }
 }

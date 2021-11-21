@@ -1,14 +1,14 @@
 spring:
   datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://${DB_URL:localhost:5432/sever}
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb
     username: postgres
     password: password
   liquibase:
     url: ${spring.datasource.url}
     user: ${spring.datasource.username}
     password: ${spring.datasource.password}
-    drop-first: true
+#    drop-first: true
     change-log: classpath:/db/changelog/db.changelog-master.xml
   h2:
     console:
@@ -26,5 +26,3 @@ security:
         key-store: classpath:jwt/jwt.jks
         key-alias: jwt
         key-store-password: storePassword
-
-logging.level.org.springframework.web: TRACE

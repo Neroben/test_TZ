@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import project.errorhandling.exception.ProductNotFoundException;
 import project.errorhandling.exception.UserNotFoundException;
+import project.persistence.entity.ProductEntity;
 import project.persistence.entity.UserEntity;
 import project.persistence.repository.OrderLineRepository;
 import project.persistence.repository.ProductRepository;
@@ -35,12 +36,14 @@ public class ProductModificationServiceImpl implements ProductModificationServic
     @Transactional
     public void deleteProduct(UUID id, String email) {
         UserEntity user = findUserByEmail(email);
-        productRepository.findByIdAndSupplierId(id, user.getId())
-                .orElseThrow(() -> new ProductNotFoundException(id.toString()))
-                .getOrderLines().forEach(a -> {
-            a.setProduct(null);
-            orderLineRepository.save(a);
-        });
+        ProductEntity product = productRepository.findByIdAndSupplierId(id, user.getId())
+                .orElseThrow(() -> new ProductNotFoundException(id.toString()));
+        if(product.getOrderLines() != null) {
+            product.getOrderLines().forEach(a -> {
+                        a.setProduct(null);
+                        orderLineRepository.save(a);
+                    });
+        }
         productRepository.deleteByIdAndSupplierId(id, user.getId());
     }
 

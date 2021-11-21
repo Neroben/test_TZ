@@ -14,7 +14,5 @@ public interface ProductService {
 
     List<ProductInformationDto> getProductsBySupplier(UUID id);
 
-    List<ProductInformationDto> getAllProducts();
-
     Optional<BigDecimal> getActualPrice(ProductEntity product);
 }
